@@ -51,7 +51,7 @@ def main(argv):
 	# handle command line options
 	for opt, arg in opts:
 		if opt == "-h":
-			print("rug.py -c <number of columns> -r <number of rows>")
+			print("rug_brute_force.py -c <number of columns> -r <number of rows>")
 			sys.exit()
 		elif opt == "-v":
 			verbose = True
