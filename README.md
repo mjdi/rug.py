@@ -1,2 +1,2 @@
 # rug.py
-Solution to https://twitter.com/standupmaths/status/981567273222713345
+Solutions (bruteforce and crystal based) to https://twitter.com/standupmaths/status/981567273222713345
