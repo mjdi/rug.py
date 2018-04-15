@@ -57,7 +57,6 @@ def main(argv):
 	
 	# empty array of all points for defining all points on tessellated rug
 	a=[]
-
 	# add one to both c & r to yield number of vertical and horizontal lines demarcating square grid
 	vert = c+1
 	horz = r+1
@@ -79,11 +78,9 @@ def main(argv):
 
 	# counter for number of triangles found
 	n = 0
-
 	# define the two "tracers" for the 8 possible crystals propagating from each right angle
 	t1 = Point(1,1,vert,horz)
 	t2 = Point(1,1,vert,horz)
- 
  	# set of vectors defining the growth of the 8 crystals in the t1 and t2 directions
  	# cardinal directions between the two arms of the right angle: NW, SW, SE, NE, S, E, N, W
 	t18 = [[-2, 0], [-2, 0], [2, 0], [2,0], [-1,-1], [1, 1], [-1,1], [-1,-1]]
@@ -118,7 +115,6 @@ def main(argv):
 				t1.setXY(t1.X + t18[i][0], t1.Y + t18[i][1])
 				t2.setXY(t2.X + t28[i][0], t2.Y + t28[i][1])
 				
-	# print a concluding statement containing the brute-force calculated answer for the given inputs
 	if k == 1:
 		print("Found " + str(n) + " unique triangles for a tessellated rug with " + 
 							 str(c) + " columns, " + str(r) + " rows, and a kite center at (1,1)")
