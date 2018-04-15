@@ -1,7 +1,7 @@
 #! python
 import sys, getopt, math
 
-# Written by Marcus Diemand on April 14th 2018 to solve standupmath's "The Rug Puzzle" open problem
+# Written by Marcus Diemand on April 15th 2018 to solve standupmaths' "The Rug Puzzle" open problem
 # https://www.youtube.com/watch?v=HViA6N3VeHw
 
 class Point(object):
@@ -11,7 +11,7 @@ class Point(object):
 		self.Y = Y
 		self.vert = vert
 		self.horz = horz
-		# initially assume point is a Kite Edge vs. a Kite Center
+		# initially assume point is a kite edge vs. a kite center
 		self.isKC = False
 
 	def setXY(self, X, Y):
@@ -26,9 +26,6 @@ class Point(object):
 		
 	def setIsKC(self):
 		self.isKC = True
-
-	def getIsKC(self):
-		return self.isKC
 		
 def main(argv):
 	# get command line options
@@ -110,9 +107,12 @@ def main(argv):
 			while t1.onRug() and t2.onRug():
 				# print out triangles (comprising right angle point and two tracer points) if v is set to 1, i.e. "verbose mode"
 				if v == 1:
-					print("p:(" + str(p.X) + "," + str(p.Y) + "),\tisKC=" + str(p.isKC) + 
-					  ";\tt1:(" + str(t1.X) + "," + str(t1.Y) + "),\tisKC=" + str(t1.isKC) + 
-					  ";\tt2:(" + str(t2.X) + "," + str(t2.Y) + "),\tisKC=" + str(t2.isKC))
+					print("New triangle:\tpKC=" + str(p.isKC)[0] +
+						"\t[" + str(t18[i][0]) + "," + str(t18[i][1]) +
+						"]\t[" + str(t28[i][0]) + "," + str(t28[i][1]) + 
+						"]\t(" + str(p.X)  + "," + str(p.Y)  + 
+					   	")\t(" + str(t1.X) + "," + str(t1.Y) + 
+					   	")\t(" + str(t2.X) + "," + str(t2.Y) + ")")
 
 				n = n + 1
 				t1.setXY(t1.X + t18[i][0], t1.Y + t18[i][1])
@@ -120,11 +120,11 @@ def main(argv):
 				
 	# print a concluding statement containing the brute-force calculated answer for the given inputs
 	if k == 1:
-		print("There are " + str(n) + " unique triangles for a tessellated rug with " + 
-							 str(c) + " columns and " + str(r) + " rows and a Kite Center at (1,1)")
+		print("Found " + str(n) + " unique triangles for a tessellated rug with " + 
+							 str(c) + " columns, " + str(r) + " rows, and a kite center at (1,1)")
 	elif k == 0:
-		print("There are " + str(n) + " unique triangles for a tessellated rug with " + 
-							 str(c) + " columns and " + str(r) + " rows and no Kite Center at (1,1).")
+		print("Found " + str(n) + " unique triangles for a tessellated rug with " + 
+							 str(c) + " columns, " + str(r) + " rows, and no kite center at (1,1).")
 		
 if __name__ == "__main__":
    main(sys.argv[1:])
