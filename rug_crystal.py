@@ -23,10 +23,10 @@ class Point(object):
 			return True
 		else:
 			return False
-		
+
 	def setIsKC(self):
 		self.isKC = True
-		
+			
 def main(argv):
 	# get command line options
 	try:
@@ -34,13 +34,13 @@ def main(argv):
 	except getopt.GetoptError:
 		print("rug.py -h <help> -v <verbose> -c <number of columns> -r <number of rows> -k <1 if kitecenter at (1,1), 0 otherwise>")
 		sys.exit(2)
-	
+
 	# hardcode the example provided at 1:26 in https://www.youtube.com/watch?v=HViA6N3VeHw&t=1m26s
 	v = 0
 	c = 5
 	r = 2
 	k = 0
-	
+
 	# handle command line options
 	for opt, arg in opts:
 		if opt == "-h":
@@ -54,26 +54,26 @@ def main(argv):
 			r = int(arg)
 		elif opt in ("-k", "--kc"):
 			k = int(arg)
-	
+
 	# empty array of all points for defining all points on tessellated rug
 	a=[]
 	# add one to both c & r to yield number of vertical and horizontal lines demarcating square grid
 	vert = c+1
 	horz = r+1
-	
+
 	# generate all the points comprising a square grid from (1,1) to (vert,horz)
 	for x in range (1, vert+1):
 		for y in range (1, horz+1):
 			p = Point(x,y,vert,horz)
-			
+
 			# identify "kite center" points which checker across the tessellated rug (hence modulus)
 			if k == 0:
-				if ((x-1) % 2 == 1 and (y-1) % 2 == 0) or ((x-1) % 2 == 0 and (y-1) % 2 == 1): 
+				if ((x-1) % 2 == 1 and (y-1) % 2 == 0) or ((x-1) % 2 == 0 and (y-1) % 2 == 1):
 					p.setIsKC()
 			elif k == 1:
-				if (math.fabs(x-y) % 2 == 0): 
+				if (math.fabs(x-y) % 2 == 0):
 					p.setIsKC()
-				
+
 			a.append(p)
 
 	# counter for number of triangles found
@@ -95,32 +95,32 @@ def main(argv):
 			if i >= 4 and p.isKC:
 				continue
 			elif i < 4 and p.isKC:
-				t1.setXY(t1.X + int(1/2*t18[i][0]), t1.Y + int(1/2*t18[i][1]))
-				t2.setXY(t2.X + int(1/2*t28[i][0]), t2.Y + int(1/2*t28[i][1]))
+				t1.setXY(t1.X + int(1.0/2.0*float(t18[i][0])), t1.Y + int(1.0/2.0*float(t18[i][1])))
+				t2.setXY(t2.X + int(1.0/2.0*float(t28[i][0])), t2.Y + int(1.0/2.0*float(t28[i][1])))
 			else:
 				t1.setXY(t1.X + t18[i][0], t1.Y + t18[i][1])
-				t2.setXY(t2.X + t28[i][0], t2.Y + t28[i][1]) 
+				t2.setXY(t2.X + t28[i][0], t2.Y + t28[i][1])
 
 			while t1.onRug() and t2.onRug():
 				# print out triangles (comprising right angle point and two tracer points) if v is set to 1, i.e. "verbose mode"
 				if v == 1:
 					print("New triangle:\tpKC=" + str(p.isKC)[0] +
 						"\t[" + str(t18[i][0]) + "," + str(t18[i][1]) +
-						"]\t[" + str(t28[i][0]) + "," + str(t28[i][1]) + 
-						"]\t(" + str(p.X)  + "," + str(p.Y)  + 
-					   	")\t(" + str(t1.X) + "," + str(t1.Y) + 
+						"]\t[" + str(t28[i][0]) + "," + str(t28[i][1]) +
+						"]\t(" + str(p.X)  + "," + str(p.Y)  +
+					   	")\t(" + str(t1.X) + "," + str(t1.Y) +
 					   	")\t(" + str(t2.X) + "," + str(t2.Y) + ")")
 
 				n = n + 1
 				t1.setXY(t1.X + t18[i][0], t1.Y + t18[i][1])
 				t2.setXY(t2.X + t28[i][0], t2.Y + t28[i][1])
-				
+
 	if k == 1:
-		print("Found " + str(n) + " unique triangles for a tessellated rug with " + 
+		print("Found " + str(n) + " unique triangles for a tessellated rug with " +
 							 str(c) + " columns, " + str(r) + " rows, and a kite center at (1,1)")
 	elif k == 0:
-		print("Found " + str(n) + " unique triangles for a tessellated rug with " + 
+		print("Found " + str(n) + " unique triangles for a tessellated rug with " +
 							 str(c) + " columns, " + str(r) + " rows, and no kite center at (1,1).")
-		
+
 if __name__ == "__main__":
    main(sys.argv[1:])
